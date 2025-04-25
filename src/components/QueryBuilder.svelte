@@ -3,6 +3,7 @@
   import Input from "./Input.svelte";
   import NumberSelection from "./NumberSelection.svelte";
   import QueryBuilderChild from "./QueryBuilderChild.svelte";
+  import QueryBuilderGroup from "./QueryBuilderGroup.svelte";
 
   const qb: QueryBuilderConfig = $state({
     operators: [
@@ -69,12 +70,12 @@
                 operatorIdentifier: "AND",
                 children: [
                   {
-                    identifier: "txt",
-                    value: "a",
+                    identifier: "num",
+                    value: 1,
                   },
                   {
-                    identifier: "txt",
-                    value: "b",
+                    identifier: "num",
+                    value: 2,
                   },
                 ],
               },
@@ -103,9 +104,7 @@
   });
 </script>
 
-<div class="w-lg mx-auto mt-8 rounded-2xl shadow-lg border border-gray-200">
-  <QueryBuilderChild title="Operator" type="select" options={qb.operators} />
-</div>
+<QueryBuilderGroup {qb} {query} child={false} />
 
 <style>
 </style>

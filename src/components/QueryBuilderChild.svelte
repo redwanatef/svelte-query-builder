@@ -6,7 +6,7 @@
   let { value, title, type, options }: QueryBuilderChildProps = $props();
 </script>
 
-<div class="bg-gray-200 p-7">
+<div class="bg-gray-200 p-5">
   <div class="flex gap-4 items-center">
     <h4 class="font-bold text-xl">{title}</h4>
     {#if type === "text"}
@@ -17,7 +17,10 @@
       <select class="bg-white">
         <option disabled value="">Select an operator</option>
         {#each options as option}
-          <option value={option.identifier}>{option.name}</option>
+          <option
+            value={option.identifier}
+            selected={value === option.identifier}>{option.name}</option
+          >
         {/each}
       </select>
     {/if}
