@@ -1,37 +1,7 @@
 <script lang="ts">
-  import type { QueryBuilderConfig, RuleSet } from "../types";
-  import Input from "./Input.svelte";
-  import NumberSelection from "./NumberSelection.svelte";
-  import QueryBuilderChild from "./QueryBuilderChild.svelte";
+  import { qb } from "../config";
+  import type { RuleSet } from "../types";
   import QueryBuilderGroup from "./QueryBuilderGroup.svelte";
-
-  const qb: QueryBuilderConfig = $state({
-    operators: [
-      {
-        name: "AND",
-        identifier: "AND",
-      },
-      {
-        name: "OR",
-        identifier: "OR",
-      },
-    ],
-    rules: [
-      {
-        identifier: "txt",
-        name: "Text Selection",
-        component: Input,
-        initialValue: "",
-      },
-      {
-        identifier: "num",
-        name: "Number Selection",
-        component: NumberSelection,
-        initialValue: 10,
-      },
-    ],
-    // colors: ["hsl(88, 50%, 55%)", "hsl(187, 100%, 45%)", "hsl(15, 100%, 55%)"],
-  });
 
   const query: RuleSet = $state({
     operatorIdentifier: "OR",
@@ -104,7 +74,6 @@
   });
 </script>
 
-<QueryBuilderGroup {qb} {query} child={false} />
-
-<style>
-</style>
+<div class="pb-4 w-fit mx-auto">
+  <QueryBuilderGroup {qb} {query} child={false} />
+</div>

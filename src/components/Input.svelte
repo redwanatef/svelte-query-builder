@@ -2,4 +2,4 @@
   let { value = $bindable() }: { value: string } = $props();
 </script>
 
-<input bind:value />
+<input class="bg-white p-1" bind:value />
