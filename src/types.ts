@@ -3,7 +3,7 @@ import type { Component } from "svelte";
 
 export interface Rule {
   identifier: string;
-  value: any;
+  value?: any;
 }
 
 export interface RuleSet {
@@ -39,4 +39,20 @@ export type QueryBuilderChildProps = {
   value?: any;
   title: string;
   options?: OperatorDefinition[];
+  parent: boolean;
+  handleNode: (
+    action: actionType,
+    newnode?: Rule | RuleSet | OperatorDefinition
+  ) => void;
 };
+
+export type QueryBuilderGroupProps = {
+  qb: QueryBuilderConfig;
+  parentNode?: RuleSet;
+  currentNode: RuleSet | Rule;
+  child: boolean;
+  currentIndex?: number;
+  level?: number;
+};
+
+export type actionType = "add" | "delete" | "update";

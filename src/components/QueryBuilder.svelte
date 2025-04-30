@@ -3,7 +3,7 @@
   import type { RuleSet } from "../types";
   import QueryBuilderGroup from "./QueryBuilderGroup.svelte";
 
-  const query: RuleSet = $state({
+  let query: RuleSet = $state({
     operatorIdentifier: "OR",
     children: [
       {
@@ -75,5 +75,5 @@
 </script>
 
 <div class="pb-4 w-fit mx-auto">
-  <QueryBuilderGroup {qb} {query} child={false} />
+  <QueryBuilderGroup {qb} currentNode={query} child={false} />
 </div>
