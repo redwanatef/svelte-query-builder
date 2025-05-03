@@ -94,7 +94,9 @@
         >
           Add Rule
         </button>
-        <button onclick={() => handleAddNode("group")}> Add Group </button>
+        {#if !qb.maxDepth || (qb.maxDepth && qb.maxDepth > level)}
+          <button onclick={() => handleAddNode("group")}> Add Group </button>
+        {/if}
       </div>
       {#each currentNode.children as child, index}
         <QueryBuilderGroup

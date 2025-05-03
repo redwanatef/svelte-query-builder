@@ -29,7 +29,7 @@ export interface RuleDefinition {
 export interface QueryBuilderConfig {
   operators: OperatorDefinition[];
   rules: RuleDefinition[];
-  //   maxDepth?: number;
+  maxDepth?: number;
   colors?: string[];
   dragging?: SortableOptions;
 }
