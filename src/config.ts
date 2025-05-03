@@ -27,5 +27,5 @@ export const qb: QueryBuilderConfig = {
       initialValue: 10,
     },
   ],
-  // colors: ["hsl(88, 50%, 55%)", "hsl(187, 100%, 45%)", "hsl(15, 100%, 55%)"],
+  colors: ["hsl(88, 50%, 55%)", "hsl(187, 100%, 45%)", "hsl(15, 100%, 55%)"],
 };

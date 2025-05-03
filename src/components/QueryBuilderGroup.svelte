@@ -68,7 +68,8 @@
 
 <main style={level! !== 0 ? `padding-left: ${level}rem;` : ""}>
   <div
-    class={`w-full mt-8 rounded border shadow-lg flex flex-col gap-4 ${child ? "border-l-green-400 border-l-4" : ""}`}
+    class={`w-full mt-8 rounded border shadow-lg flex flex-col gap-4 `}
+    style={`border-left: ${child && qb.colors ? "3px solid " + qb.colors[level % qb.colors?.length] : ""};`}
   >
     {#if isRuleSet(currentNode)}
       <QueryBuilderChild

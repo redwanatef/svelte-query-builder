@@ -30,7 +30,7 @@ export interface QueryBuilderConfig {
   operators: OperatorDefinition[];
   rules: RuleDefinition[];
   //   maxDepth?: number;
-  //   colors?: string[];
+  colors?: string[];
   dragging?: SortableOptions;
 }
 

@@ -74,6 +74,6 @@
   });
 </script>
 
-<div class="pb-4 w-fit mx-auto">
+<div class="pb-4 w-[50%] mx-auto">
   <QueryBuilderGroup {qb} currentNode={query} child={false} />
 </div>
