@@ -4,13 +4,16 @@
     OperatorDefinition,
     QueryBuilderGroupProps,
     Rule,
+    RuleDefinition,
     RuleSet,
   } from "../types";
+
+  import { defaultConfig } from "../config";
   import QueryBuilderChild from "./QueryBuilderChild.svelte";
   import QueryBuilderGroup from "./QueryBuilderGroup.svelte";
 
   let {
-    qb,
+    qb = defaultConfig,
     currentNode,
     parentNode,
     child = false,
@@ -22,6 +25,10 @@
 
   const isRuleSet = (child: RuleSet | Rule): child is RuleSet => {
     return (child as RuleSet).operatorIdentifier !== undefined;
+  };
+
+  const getRuleTitle = (rules: RuleDefinition[], identifier: string) => {
+    return rules.find((rule) => rule.identifier === identifier)?.name;
   };
 
   const handleNode = (
@@ -41,17 +48,10 @@
     let newNode;
 
     if (type === "rule") {
-      if (selectedRule === "number") {
-        newNode = {
-          identifier: "num",
-          value: 0,
-        };
-      } else if (selectedRule === "text") {
-        newNode = {
-          identifier: "txt",
-          value: "",
-        };
-      }
+      newNode = {
+        identifier: selectedRule,
+        value: 0,
+      };
     } else if (type === "group") {
       newNode = {
         operatorIdentifier: "AND",
@@ -80,8 +80,9 @@
       <div class="flex items-center gap-6 pl-6">
         <select class="p-1 border cursor-pointer" bind:value={selectedRule}>
           <option disabled selected value="">select a rule</option>
-          <option value="text">text selection</option>
-          <option value="number">number selection</option>
+          {#each qb.rules as rule}
+            <option value={rule.identifier}>{rule.name}</option>
+          {/each}
         </select>
 
         <button
@@ -106,15 +107,16 @@
       {/each}
     {:else if currentNode.identifier === "txt"}
       <QueryBuilderChild
-        title="Text Selection"
+        title="Text"
         type="text"
         bind:value={currentNode.value}
         {handleNode}
         parent={currentIndex >= 0}
       />
-    {:else if currentNode.identifier === "num"}
+    {:else if currentNode.identifier.includes("num")}
       <QueryBuilderChild
-        title="Number Selection"
+        title={getRuleTitle(qb.rules, currentNode.identifier) ||
+          "Number Selection"}
         type="number"
         bind:value={currentNode.value}
         {handleNode}

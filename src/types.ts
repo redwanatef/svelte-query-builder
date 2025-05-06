@@ -19,10 +19,7 @@ export interface OperatorDefinition {
 export interface RuleDefinition {
   identifier: string;
   name: string;
-  component:
-    | Component<{ value: string }>
-    | Component<{ value: number }>
-    | string;
+  component: Component<{ value: any }> | string;
   initialValue?: any;
 }
 
@@ -47,7 +44,7 @@ export type QueryBuilderChildProps = {
 };
 
 export type QueryBuilderGroupProps = {
-  qb: QueryBuilderConfig;
+  qb?: QueryBuilderConfig;
   parentNode?: RuleSet;
   currentNode: RuleSet | Rule;
   child: boolean;

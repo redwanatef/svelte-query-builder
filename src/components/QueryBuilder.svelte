@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { qb } from "../config";
   import type { RuleSet } from "../types";
   import QueryBuilderGroup from "./QueryBuilderGroup.svelte";
 
-  let query: RuleSet = $state({
+  let defaultQuery: RuleSet = $state({
     operatorIdentifier: "OR",
     children: [
       {
@@ -40,11 +39,11 @@
                 operatorIdentifier: "AND",
                 children: [
                   {
-                    identifier: "num",
+                    identifier: "num gt",
                     value: 1,
                   },
                   {
-                    identifier: "num",
+                    identifier: "num eq",
                     value: 2,
                   },
                 ],
@@ -75,5 +74,5 @@
 </script>
 
 <div class="pb-4 w-[50%] mx-auto">
-  <QueryBuilderGroup {qb} currentNode={query} child={false} />
+  <QueryBuilderGroup child={false} currentNode={defaultQuery} />
 </div>
