@@ -35,10 +35,6 @@
     if (action === "add" && newnode && isRuleSet(currentNode)) {
       currentNode.children.push(newnode);
     }
-
-    if (action === "update" && isRuleSet(currentNode) && newnode) {
-      currentNode.children[currentIndex] = newnode;
-    }
   };
 
   const handleAddNode = (type: "rule" | "group") => {
@@ -76,7 +72,7 @@
         title="Operator"
         type="select"
         options={qb.operators}
-        value={currentNode.operatorIdentifier}
+        bind:value={currentNode.operatorIdentifier}
         {handleNode}
         parent={currentIndex >= 0}
       />
@@ -112,7 +108,7 @@
       <QueryBuilderChild
         title="Text Selection"
         type="text"
-        value={currentNode.value}
+        bind:value={currentNode.value}
         {handleNode}
         parent={currentIndex >= 0}
       />
@@ -120,7 +116,7 @@
       <QueryBuilderChild
         title="Number Selection"
         type="number"
-        value={currentNode.value}
+        bind:value={currentNode.value}
         {handleNode}
         parent={currentIndex >= 0}
       />

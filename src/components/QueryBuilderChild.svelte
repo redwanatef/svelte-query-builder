@@ -4,44 +4,24 @@
   import NumberSelection from "./NumberSelection.svelte";
 
   let {
-    value,
+    value = $bindable(),
     title,
     type,
     options,
     handleNode,
     parent,
   }: QueryBuilderChildProps = $props();
-
-  let inputValue = $state(value);
-
-  $effect(() => {
-    let newNode;
-    if (type === "select") {
-      newNode = {
-        name: inputValue,
-        identifier: inputValue,
-      };
-    } else if (type === "text" || type === "number") {
-      newNode = {
-        identifier: type === "text" ? "txt" : "num",
-        value: inputValue,
-      };
-    }
-
-    handleNode("update", newNode);
-    $inspect(inputValue);
-  });
 </script>
 
 <div class="bg-gray-200 p-5 rounded flex justify-between w-full">
   <div class="flex gap-4 items-center">
     <h4 class="font-bold text-xl">{title}</h4>
     {#if type === "text"}
-      <Input bind:value={inputValue} />
+      <Input bind:value />
     {:else if type === "number"}
-      <NumberSelection bind:value={inputValue} />
+      <NumberSelection bind:value />
     {:else if type === "select" && options}
-      <select class="bg-white" bind:value={inputValue}>
+      <select class="bg-white" bind:value>
         <option disabled value="">Select an operator</option>
         {#each options as option}
           <option
@@ -73,5 +53,4 @@
 </div>
 
 <style>
-  /* your styles go here */
 </style>

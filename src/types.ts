@@ -55,4 +55,4 @@ export type QueryBuilderGroupProps = {
   level?: number;
 };
 
-export type actionType = "add" | "delete" | "update";
+export type actionType = "add" | "delete";
