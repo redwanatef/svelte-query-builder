@@ -107,7 +107,7 @@
       {/each}
     {:else if currentNode.identifier === "txt"}
       <QueryBuilderChild
-        title="Text"
+        title={getRuleTitle(qb.rules, currentNode.identifier) || "Text"}
         type="text"
         bind:value={currentNode.value}
         {handleNode}
@@ -118,6 +118,14 @@
         title={getRuleTitle(qb.rules, currentNode.identifier) ||
           "Number Selection"}
         type="number"
+        bind:value={currentNode.value}
+        {handleNode}
+        parent={currentIndex >= 0}
+      />
+    {:else if currentNode.identifier.includes("date")}
+      <QueryBuilderChild
+        title={getRuleTitle(qb.rules, currentNode.identifier) || "Date"}
+        type="date"
         bind:value={currentNode.value}
         {handleNode}
         parent={currentIndex >= 0}

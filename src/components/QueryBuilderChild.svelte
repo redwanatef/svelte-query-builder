@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { QueryBuilderChildProps } from "../types";
+  import DateInput from "./DateInput.svelte";
   import Input from "./Input.svelte";
   import NumberSelection from "./NumberSelection.svelte";
 
@@ -20,6 +21,8 @@
       <Input bind:value />
     {:else if type === "number"}
       <NumberSelection bind:value />
+    {:else if type === "date"}
+      <DateInput bind:value />
     {:else if type === "select" && options}
       <select class="bg-white" bind:value>
         <option disabled value="">Select an operator</option>

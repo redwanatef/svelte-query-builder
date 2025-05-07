@@ -32,7 +32,7 @@ export interface QueryBuilderConfig {
 }
 
 export type QueryBuilderChildProps = {
-  type: "text" | "number" | "select";
+  type: "text" | "number" | "select" | "date";
   value?: any;
   title: string;
   options?: OperatorDefinition[];

@@ -13,16 +13,16 @@
         operatorIdentifier: "AND",
         children: [
           {
-            identifier: "txt",
-            value: "A",
+            identifier: "date before",
+            value: new Date(),
           },
           {
             identifier: "txt",
             value: "B",
           },
           {
-            identifier: "txt",
-            value: "C",
+            identifier: "date after",
+            value: new Date(),
           },
           {
             operatorIdentifier: "AND",
