@@ -1,78 +1,22 @@
 <script lang="ts">
-  import type { RuleSet } from "../types";
+  import { setContext } from "svelte";
+  import { defaultConfig, defaultQuery } from "../config";
+  import type { QueryBuilderConfig, RuleSet } from "../types";
   import QueryBuilderGroup from "./QueryBuilderGroup.svelte";
 
-  let defaultQuery: RuleSet = $state({
-    operatorIdentifier: "OR",
-    children: [
-      {
-        identifier: "txt",
-        value: "A",
-      },
-      {
-        operatorIdentifier: "AND",
-        children: [
-          {
-            identifier: "date before",
-            value: new Date(),
-          },
-          {
-            identifier: "txt",
-            value: "B",
-          },
-          {
-            identifier: "date after",
-            value: new Date(),
-          },
-          {
-            operatorIdentifier: "AND",
-            children: [
-              {
-                identifier: "txt",
-                value: "c",
-              },
-              {
-                identifier: "txt",
-                value: "d",
-              },
-              {
-                operatorIdentifier: "AND",
-                children: [
-                  {
-                    identifier: "num gt",
-                    value: 1,
-                  },
-                  {
-                    identifier: "num eq",
-                    value: 2,
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        operatorIdentifier: "AND",
-        children: [
-          {
-            identifier: "txt",
-            value: "X",
-          },
-          {
-            identifier: "txt",
-            value: "Y",
-          },
-          {
-            identifier: "txt",
-            value: "Z",
-          },
-        ],
-      },
-    ],
-  });
+  let {
+    config = defaultConfig,
+    query = defaultQuery,
+  }: {
+    config?: QueryBuilderConfig;
+    query?: RuleSet;
+  } = $props();
+
+  let queryState = $state(query);
+
+  setContext("config", config);
 </script>
 
-<div class="pb-4 w-[50%] mx-auto">
-  <QueryBuilderGroup child={false} currentNode={defaultQuery} />
+<div class="pb-4 min-w-[90%] lg:min-w-[60%] max-w-fit mx-auto">
+  <QueryBuilderGroup child={false} currentNode={queryState} />
 </div>

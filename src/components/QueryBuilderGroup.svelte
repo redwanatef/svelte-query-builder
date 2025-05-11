@@ -1,19 +1,18 @@
 <script lang="ts">
   import type {
     actionType,
-    OperatorDefinition,
+    QueryBuilderConfig,
     QueryBuilderGroupProps,
     Rule,
-    RuleDefinition,
     RuleSet,
   } from "../types";
 
-  import { defaultConfig } from "../config";
-  import QueryBuilderChild from "./QueryBuilderChild.svelte";
+  import QueryBuilderChild from "./CombinatorItem.svelte";
   import QueryBuilderGroup from "./QueryBuilderGroup.svelte";
+  import RuleItem from "./RuleItem.svelte";
+  import { getContext } from "svelte";
 
   let {
-    qb = defaultConfig,
     currentNode,
     parentNode,
     child = false,
@@ -21,20 +20,15 @@
     currentIndex = -1,
   }: QueryBuilderGroupProps = $props();
 
-  let selectedRule = $state("");
+  const qb: QueryBuilderConfig = getContext("config");
+
+  let editCurrent: Rule = $state(currentNode as Rule);
 
   const isRuleSet = (child: RuleSet | Rule): child is RuleSet => {
     return (child as RuleSet).operatorIdentifier !== undefined;
   };
 
-  const getRuleTitle = (rules: RuleDefinition[], identifier: string) => {
-    return rules.find((rule) => rule.identifier === identifier)?.name;
-  };
-
-  const handleNode = (
-    action: actionType,
-    newnode?: Rule | RuleSet | OperatorDefinition
-  ) => {
+  const handleNode = (action: actionType, newnode?: Rule | RuleSet) => {
     if (action === "delete" && parentNode && isRuleSet(parentNode)) {
       parentNode.children.splice(currentIndex, 1);
     }
@@ -49,8 +43,18 @@
 
     if (type === "rule") {
       newNode = {
-        identifier: selectedRule,
-        value: 0,
+        field: {
+          name: "firstName",
+          label: "First Name",
+          placeholder: "Enter first name",
+          inputType: "text",
+        },
+        operator: {
+          name: "contains",
+          value: "contains",
+          type: ["text"],
+        },
+        value: "",
       };
     } else if (type === "group") {
       newNode = {
@@ -69,35 +73,19 @@
   >
     {#if isRuleSet(currentNode)}
       <QueryBuilderChild
-        title="Operator"
-        type="select"
-        options={qb.operators}
         bind:value={currentNode.operatorIdentifier}
         {handleNode}
         parent={currentIndex >= 0}
       />
 
       <div class="flex items-center gap-6 pl-6">
-        <select class="p-1 border cursor-pointer" bind:value={selectedRule}>
-          <option disabled selected value="">select a rule</option>
-          {#each qb.rules as rule}
-            <option value={rule.identifier}>{rule.name}</option>
-          {/each}
-        </select>
-
-        <button
-          disabled={selectedRule === ""}
-          onclick={() => handleAddNode("rule")}
-        >
-          Add Rule
-        </button>
+        <button onclick={() => handleAddNode("rule")}> Add Rule </button>
         {#if !qb.maxDepth || (qb.maxDepth && qb.maxDepth > level)}
           <button onclick={() => handleAddNode("group")}> Add Group </button>
         {/if}
       </div>
       {#each currentNode.children as child, index}
         <QueryBuilderGroup
-          {qb}
           level={level + 1}
           parentNode={currentNode}
           currentNode={child}
@@ -105,30 +93,12 @@
           currentIndex={index}
         />
       {/each}
-    {:else if currentNode.identifier === "txt"}
-      <QueryBuilderChild
-        title={getRuleTitle(qb.rules, currentNode.identifier) || "Text"}
-        type="text"
-        bind:value={currentNode.value}
+    {:else}
+      <RuleItem
+        bind:field={editCurrent.field}
+        bind:operator={editCurrent.operator}
+        bind:value={editCurrent.value}
         {handleNode}
-        parent={currentIndex >= 0}
-      />
-    {:else if currentNode.identifier.includes("num")}
-      <QueryBuilderChild
-        title={getRuleTitle(qb.rules, currentNode.identifier) ||
-          "Number Selection"}
-        type="number"
-        bind:value={currentNode.value}
-        {handleNode}
-        parent={currentIndex >= 0}
-      />
-    {:else if currentNode.identifier.includes("date")}
-      <QueryBuilderChild
-        title={getRuleTitle(qb.rules, currentNode.identifier) || "Date"}
-        type="date"
-        bind:value={currentNode.value}
-        {handleNode}
-        parent={currentIndex >= 0}
       />
     {/if}
   </div>

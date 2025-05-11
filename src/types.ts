@@ -1,9 +1,9 @@
 import type { SortableOptions } from "sortablejs";
-import type { Component } from "svelte";
 
 export interface Rule {
-  identifier: string;
-  value?: any;
+  field: FieldDefinition;
+  operator: Operator;
+  value: any;
 }
 
 export interface RuleSet {
@@ -11,40 +11,43 @@ export interface RuleSet {
   children: Array<RuleSet | Rule>;
 }
 
-export interface OperatorDefinition {
+export interface CombinatorDefinition {
   identifier: string;
   name: string;
 }
 
-export interface RuleDefinition {
-  identifier: string;
+export interface Operator {
   name: string;
-  component: Component<{ value: any }> | string;
-  initialValue?: any;
+  value: string;
+  type: string[];
+}
+
+export interface FieldDefinition {
+  name: string;
+  label: string;
+  operators?: Operator;
+  inputType?: string;
+  placeholder?: string;
+  // options?: string[];
+  defaultValue?: any;
 }
 
 export interface QueryBuilderConfig {
-  operators: OperatorDefinition[];
-  rules: RuleDefinition[];
+  combinators: CombinatorDefinition[];
+  fields: FieldDefinition[];
+  operators: Operator[];
   maxDepth?: number;
   colors?: string[];
   dragging?: SortableOptions;
 }
 
 export type QueryBuilderChildProps = {
-  type: "text" | "number" | "select" | "date";
   value?: any;
-  title: string;
-  options?: OperatorDefinition[];
   parent: boolean;
-  handleNode: (
-    action: actionType,
-    newnode?: Rule | RuleSet | OperatorDefinition
-  ) => void;
+  handleNode: (action: actionType, newnode?: Rule | RuleSet) => void;
 };
 
 export type QueryBuilderGroupProps = {
-  qb?: QueryBuilderConfig;
   parentNode?: RuleSet;
   currentNode: RuleSet | Rule;
   child: boolean;
