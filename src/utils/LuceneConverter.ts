@@ -1,8 +1,5 @@
+import { isRule } from ".";
 import type { Rule, RuleSet } from "../types";
-
-function isRule(node: RuleSet | Rule): node is Rule {
-  return (node as Rule).field !== undefined;
-}
 
 function escapeLuceneValue(value: string): string {
   // Escape special Lucene characters: + - && || ! ( ) { } [ ] ^ " ~ * ? : \
