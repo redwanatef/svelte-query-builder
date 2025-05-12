@@ -105,6 +105,47 @@ export const defaultConfig: QueryBuilderConfig = {
 };
 
 export let defaultQuery: RuleSet = {
+  operatorIdentifier: "AND",
+  children: [
+    {
+      field: {
+        name: "firstName",
+        label: "First Name",
+        placeholder: "Enter first name",
+        inputType: "text",
+      },
+      operator: {
+        name: "contains",
+        value: "contains",
+        type: ["text"],
+      },
+      value: "",
+    },
+    {
+      operatorIdentifier: "OR",
+      children: [
+        {
+          field: {
+            name: "dateOfBirth",
+            label: "Date of Birth",
+            placeholder: "Select date of birth",
+            inputType: "date",
+          },
+          operator: {
+            name: "before",
+            value: "before",
+            type: ["date"],
+          },
+          value: "",
+        },
+      ],
+    },
+  ],
+};
+
+/*
+
+{
   operatorIdentifier: "OR",
   children: [
     {
@@ -221,4 +262,5 @@ export let defaultQuery: RuleSet = {
       ],
     },
   ],
-};
+}
+*/

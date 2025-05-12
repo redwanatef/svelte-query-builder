@@ -66,9 +66,12 @@
   };
 </script>
 
-<main style={level! !== 0 ? `padding-left: ${level}rem;` : ""}>
+<main
+  style={level! !== 0 ? `padding-left: ${level}rem;` : "margin-top: 2rem"}
+  class="pb-6"
+>
   <div
-    class={`w-full mt-8 rounded border shadow-lg flex flex-col gap-4 `}
+    class={`w-full rounded border shadow-lg flex flex-col gap-4 `}
     style={`border-left: ${child && qb.colors ? "3px solid " + qb.colors[level % qb.colors?.length] : ""};`}
   >
     {#if isRuleSet(currentNode)}

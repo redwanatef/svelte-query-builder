@@ -17,6 +17,6 @@
   setContext("config", config);
 </script>
 
-<div class="pb-4 min-w-[90%] lg:min-w-[60%] max-w-fit mx-auto">
+<div class="min-w-[90%] lg:min-w-[60%] max-w-fit mx-auto">
   <QueryBuilderGroup child={false} currentNode={queryState} />
 </div>
