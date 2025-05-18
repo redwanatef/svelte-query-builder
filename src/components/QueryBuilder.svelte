@@ -46,7 +46,7 @@
 
     <div class="mt-3 bg-gray-300 p-4">
       <div class="w-[90%]">
-        {exportedQuery}
+        <pre class="whitespace-pre-wrap wrap-break-word">{exportedQuery}</pre>
       </div>
     </div>
   </div>
