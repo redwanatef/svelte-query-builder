@@ -68,7 +68,7 @@
 
 <main
   style={level! !== 0 ? `padding-left: ${level}rem;` : "margin-top: 2rem"}
-  class="pb-6"
+  class="pb-6 mr-3"
 >
   <div
     class={`w-full rounded border shadow-lg flex flex-col gap-4 `}

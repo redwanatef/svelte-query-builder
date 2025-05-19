@@ -34,7 +34,7 @@
 </script>
 
 <main class="flex items-center justify-between bg-gray-200 px-5">
-  <div class="flex gap-8 items-center p-5">
+  <div class="flex flex-col md:flex-row gap-3 md:gap-8 items-center p-5">
     <select bind:value={() => field.name, onChangeField}>
       {#each config.fields as field}
         <option value={field.name}>{field.label}</option>
@@ -85,5 +85,8 @@
   input {
     background-color: white;
     padding: 0.5rem;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
 </style>

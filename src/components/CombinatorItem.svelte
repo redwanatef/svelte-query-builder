@@ -12,7 +12,7 @@
 </script>
 
 <div class="bg-gray-200 p-5 rounded flex justify-between w-full">
-  <div class="flex gap-4 items-center">
+  <div class="flex gap-1.5 md:gap-4 items-center">
     <h4 class="font-bold text-xl">Combinator</h4>
     <select class="bg-white" bind:value>
       <option disabled value="">Select an operator</option>
