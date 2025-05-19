@@ -1,0 +1,10 @@
+[site]
+bucket = "./dist"
+entry-point = "."
+
+[build]
+command = "pnpm build"
+output_dir = "dist"
+
+[build.environment]
+NODE_VERSION = "20" 
